@@ -1,0 +1,57 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&family=Open+Sans:wght@400;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --fume-rose: #d92365;
+  --fume-plum: #710a73;
+  --fume-ink: #27171a;
+  --fume-bg: #fff8f7;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  color: var(--fume-ink);
+  background:
+    radial-gradient(circle at top left, rgba(217, 35, 101, 0.13), transparent 30rem),
+    radial-gradient(circle at bottom right, rgba(113, 10, 115, 0.10), transparent 34rem),
+    var(--fume-bg);
+  font-family: "Open Sans", ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+h1, h2, h3, h4, h5, h6 { font-family: "Montserrat", ui-sans-serif, system-ui, sans-serif; }
+
+.gradient-text {
+  background: linear-gradient(110deg, var(--fume-rose), var(--fume-plum));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.gradient-bg {
+  background: linear-gradient(135deg, var(--fume-rose), var(--fume-plum));
+}
+
+.glass-card {
+  background: rgba(255, 255, 255, 0.78);
+  border: 1px solid rgba(241, 212, 218, 0.85);
+  backdrop-filter: blur(18px);
+}
+
+.focus-ring {
+  @apply focus:outline-none focus:ring-4 focus:ring-fume-rose/20 focus:border-fume-rose;
+}
+
+.input-base {
+  @apply w-full rounded-2xl border border-fume-line bg-white px-4 py-3 text-sm text-fume-ink placeholder:text-fume-muted/60 shadow-sm transition focus-ring;
+}
+
+.select-base {
+  @apply w-full rounded-2xl border border-fume-line bg-white px-4 py-3 text-sm text-fume-ink shadow-sm transition focus-ring;
+}
+
+.container-pad { @apply mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8; }
