@@ -1,6 +1,8 @@
-# Fume Coworking Public Website - Next.js Responsive Frontend
+# Fume Coworking Public Website - Image-Rich Next.js Frontend
 
 This package rebuilds the Stitch public website export into a clean, responsive React/Next.js frontend for review and deployment.
+
+This updated version restores the visual/coworking feel from the Stitch export by using the original image URLs found inside the exported HTML. The earlier version had become too abstract and SaaS-like because the image sections were removed.
 
 ## Main routes
 
@@ -12,6 +14,7 @@ This package rebuilds the Stitch public website export into a clean, responsive 
 - `/solutions` - Workspace plans and solutions
 - `/enterprise` - Enterprise workspace solutions
 - `/about` - About Fume
+- `/gallery` - Workspace gallery
 - `/blog` - Blog archive
 - `/blog/future-of-flexible-workspaces` - Blog detail
 - `/contact` - Contact page
@@ -20,28 +23,52 @@ This package rebuilds the Stitch public website export into a clean, responsive 
 
 ## Alias routes included
 
-The following old/alternate routes redirect to the clean route structure:
-
 - `/home` -> `/`
 - `/solutions-plans` -> `/solutions`
 - `/enterprise-solutions` -> `/enterprise`
 - `/contact-us` -> `/contact`
 - `/book-tour` -> `/book-a-tour`
+- `/workspace-gallery` -> `/gallery`
+
+## What changed in this version
+
+- Restored Stitch image URLs across all key pages.
+- Added a proper image-led homepage hero.
+- Added image cards for workspace plans and locations.
+- Added gallery sections on homepage, location detail, about, solutions and enterprise pages.
+- Added a dedicated `/gallery` page.
+- Kept the lead capture form visible across public pages.
+- Contact and Book-a-Tour pages use larger main forms instead of duplicate global forms.
+- Added Stitch preview screenshots under `public/stitch-previews/` for developer/reference use.
 
 ## Lead capture form
 
-The reusable lead form is available across public pages through `components/LeadForm.tsx`.
+The reusable form lives in:
 
-Most public pages show the global lead section before the footer. Contact and Book-a-Tour pages use the lead form as the main page form to avoid duplicate forms.
+- `components/LeadForm.tsx`
 
-The form currently has frontend-only submission behavior. Developer should connect it to:
+The global lead section is added through:
+
+- `components/PublicShell.tsx`
+
+The form is currently frontend-only. Developer should connect it to:
 
 - CRM
-- email notification
-- backend API
-- Google Sheet
-- webhook
-- analytics/conversion event
+- Email notification
+- Backend API
+- Google Sheet / Apps Script
+- Webhook
+- Analytics/conversion event
+
+## Image source note
+
+The page visuals use the original remote image URLs from the Stitch HTML export. This keeps the package lightweight and restores the intended visual direction.
+
+For production, the developer should ideally download/replace these with final client-approved images hosted in:
+
+- `/public/images/`
+- a CDN
+- or the final CMS/media library
 
 ## Setup
 
@@ -76,7 +103,3 @@ Do not upload:
 - `.env.local`
 - `out`
 - `dist`
-
-## Legacy Stitch files
-
-The final deployable ZIP intentionally does not include the raw Stitch HTML/PNG legacy export to keep GitHub and Vercel upload lightweight. The actual deployable app is the React/Next.js implementation. Keep the original uploaded Stitch ZIP separately as visual/reference backup if needed.

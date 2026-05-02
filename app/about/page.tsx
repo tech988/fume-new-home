@@ -1,7 +1,9 @@
 import { FeatureCard } from "@/components/Cards";
 import { Hero } from "@/components/Hero";
+import { GalleryGrid, SplitImageSection } from "@/components/Media";
 import { PublicShell } from "@/components/PublicShell";
 import { Section } from "@/components/Section";
+import { media } from "@/lib/site";
 
 const values = [
   ["Designed for momentum", "Fume is positioned around modern teams that need speed, flexibility and a workspace that feels professional from day one."],
@@ -12,18 +14,26 @@ const values = [
 export default function AboutPage() {
   return (
     <PublicShell leadSource="About page enquiry">
-      <Hero eyebrow="About Fume" title={<>Redefining the <span className="gradient-text">future of work</span></>} description="Fume is built for founders, professionals and growing teams who want workspace flexibility without compromising on client experience, daily productivity or operational support." primaryLabel="Book a Visit" secondaryHref="/enterprise" secondaryLabel="Enterprise Solutions" />
-      <Section eyebrow="Why Fume" title="More than desks and rooms" description="The public site now presents Fume as a workspace partner, not just a location listing.">
+      <Hero eyebrow="About Fume" title={<>Redefining the <span className="gradient-text">future of work</span></>} description="Fume is built for founders, professionals and growing teams who want workspace flexibility without compromising on client experience, daily productivity or operational support." primaryLabel="Book a Visit" secondaryHref="/enterprise" secondaryLabel="Enterprise Solutions" image={media.aboutHero} />
+
+      <Section className="pt-4">
+        <SplitImageSection
+          eyebrow="Our story"
+          title="A workspace brand should feel physical, premium and trustworthy."
+          description="The about page now uses the original Stitch visual language: people, collaboration, interiors and community. It no longer feels like a generic software landing page."
+          bullets={["Premium spaces", "Professional community", "Founder-friendly", "Team-ready"]}
+          image={media.aboutStory}
+        />
+      </Section>
+
+      <Section eyebrow="Why Fume" title="More than desks and rooms" description="The public site presents Fume as a workspace partner, not just a location listing.">
         <div className="grid gap-6 md:grid-cols-3">
           {values.map(([title, description]) => <FeatureCard key={title} title={title} description={description} />)}
         </div>
       </Section>
-      <Section className="pt-0">
-        <div className="rounded-[2.5rem] border border-fume-line bg-white/80 p-8 shadow-soft lg:p-12">
-          <p className="font-heading text-xs font-extrabold uppercase tracking-[0.28em] text-fume-rose">Our direction</p>
-          <h2 className="mt-3 max-w-4xl font-heading text-3xl font-black text-fume-ink sm:text-5xl">Create workspaces that make it easier for people to start, meet, build and grow.</h2>
-          <p className="mt-5 max-w-3xl text-base leading-8 text-fume-muted">This frontend keeps the brand experience cohesive across public discovery, member dashboard and admin dashboard planning. It is ready for UI review and developer integration.</p>
-        </div>
+
+      <Section eyebrow="People and spaces" title="A gallery-led trust layer">
+        <GalleryGrid images={[media.teamCollab, media.networking, media.quietWorkspace, media.presentationArea, media.aboutHero, media.locationLounge]} />
       </Section>
     </PublicShell>
   );

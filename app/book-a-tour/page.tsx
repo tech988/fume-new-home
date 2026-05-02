@@ -1,31 +1,29 @@
 import { Hero } from "@/components/Hero";
 import { LeadForm } from "@/components/LeadForm";
+import { GalleryGrid } from "@/components/Media";
 import { PublicShell } from "@/components/PublicShell";
 import { Section } from "@/components/Section";
+import { media } from "@/lib/site";
 
 export default function BookTourPage() {
   return (
     <PublicShell showLeadForm={false} leadSource="Book a tour page enquiry">
-      <Hero eyebrow="Book a Tour" title={<>See your future workspace <span className="gradient-text">in person</span></>} description="A focused tour request page for users who are ready to visit, compare plans or discuss team requirements." primaryLabel="Submit Tour Request" secondaryHref="/locations" secondaryLabel="Compare Locations" />
-      <Section eyebrow="Tour request" title="Choose a workspace need and preferred location" description="This detailed form is the primary conversion route. Similar quick enquiry forms are also embedded across public pages.">
-        <div className="grid gap-8 lg:grid-cols-[0.95fr_1.05fr] lg:items-start">
-          <div className="rounded-[2rem] border border-fume-line bg-white/80 p-6 shadow-soft">
-            <h3 className="font-heading text-2xl font-black text-fume-ink">What happens next?</h3>
-            <div className="mt-6 grid gap-4">
-              {[
-                ["1", "Share your requirement"],
-                ["2", "Fume team confirms availability"],
-                ["3", "Visit the location or get a plan quote"],
-                ["4", "Move to booking/member onboarding flow"]
-              ].map(([num, text]) => (
-                <div key={num} className="flex items-center gap-4 rounded-2xl bg-fume-blush2 p-4">
-                  <span className="grid h-9 w-9 place-items-center rounded-xl gradient-bg text-sm font-black text-white">{num}</span>
-                  <p className="text-sm font-bold text-fume-ink">{text}</p>
-                </div>
+      <Hero eyebrow="Book a Tour" title={<>See the workspace before <span className="gradient-text">you choose</span></>} description="Capture visit enquiries directly from this page while also keeping workspace visuals strong enough for client review." image={media.bookTourHero} primaryLabel="Submit Enquiry Below" secondaryHref="/gallery" secondaryLabel="View Gallery" />
+      <Section className="pt-0">
+        <div className="grid gap-8 lg:grid-cols-[1fr_460px] lg:items-start">
+          <div className="rounded-[2.25rem] border border-fume-line bg-white/90 p-6 shadow-soft sm:p-8">
+            <p className="font-heading text-xs font-extrabold uppercase tracking-[0.28em] text-fume-rose">What happens next</p>
+            <h2 className="mt-3 font-heading text-3xl font-black text-fume-ink">Choose a location, share your requirement, and the team can confirm a visit slot.</h2>
+            <div className="mt-6 grid gap-4 sm:grid-cols-2">
+              {["Location walkthrough", "Plan recommendation", "Meeting room demo", "Team seating discussion"].map((item) => (
+                <div key={item} className="rounded-2xl bg-fume-blush px-4 py-3 text-sm font-bold text-fume-ink">{item}</div>
               ))}
             </div>
+            <div className="mt-6">
+              <GalleryGrid images={[media.bookTourHero, media.locationLounge, media.locationMeeting]} limit={3} />
+            </div>
           </div>
-          <LeadForm source="Book a tour detailed form" />
+          <LeadForm source="Book a tour main form" />
         </div>
       </Section>
     </PublicShell>

@@ -1,77 +1,56 @@
-# Developer Handoff - Fume Public Website
+# Developer Handoff - Fume Public Website Image-Rich Version
 
 ## What this package is
 
-A clean Next.js public website frontend rebuilt from the Stitch public portal export. It standardizes duplicated screens, cleans the public route map, and adds consistent lead capture across public pages. The raw Stitch export is not included in the final ZIP to avoid GitHub/Vercel upload bloat.
+A responsive Next.js public website frontend rebuilt from the Stitch public portal export. This version restores the coworking imagery from the original Stitch HTML and keeps a consistent public route map, navigation, global lead capture and visual system.
 
-## What was consolidated
+## Key correction from previous package
 
-The Stitch export contained multiple duplicate variants such as:
+The previous public package removed the Stitch image references, which made the site feel too much like a SaaS tool. This version adds the visual layer back across:
 
-- `home_page_1` and `home_page_2`
-- `solutions_plans_1` and `solutions_plans_2`
-- `enterprise_solutions_1` and `enterprise_solutions_2`
-- `contact_us_1` and `contact_us_2`
-- `location_detail_1` and `location_detail_2`
+- Homepage hero
+- Workspace solution cards
+- Location listing cards
+- Location detail gallery
+- About page story/gallery
+- Enterprise page visuals
+- Blog cards
+- Contact page
+- Book-a-tour page
+- Dedicated gallery page
 
-These have been consolidated into clean routes:
+## Important files
 
-- `/`
-- `/solutions`
-- `/enterprise`
-- `/contact`
-- `/locations/[slug]`
+- `lib/site.ts` - static data, route nav, image URLs, locations, solutions and blog content
+- `components/Hero.tsx` - reusable image hero
+- `components/Media.tsx` - image frames, galleries, image mosaics and split image sections
+- `components/Cards.tsx` - feature, location and solution cards
+- `components/LeadForm.tsx` - lead capture form
+- `components/PublicShell.tsx` - global layout + form placement
 
 ## Lead capture strategy
 
-A reusable lead form component has been added to every public journey. The goal is to reduce friction and capture enquiries directly from page context instead of forcing users to visit only the Contact or Book-a-Tour page.
+Every core public page still has an enquiry/tour form available without requiring an additional click. Contact and Book-a-Tour use the form as the main page form to avoid duplication.
 
-Relevant files:
-
-- `components/LeadForm.tsx`
-- `components/PublicShell.tsx`
-- `app/contact/page.tsx`
-- `app/book-a-tour/page.tsx`
-
-## Backend integration required
-
-The forms currently do not submit to a live backend. Connect the form to one of the following:
-
-- Backend API endpoint
-- CRM webhook
-- Google Sheet / Apps Script
-- Email service
-- Lead management panel
-
-Also add:
+Backend integration required:
 
 - form validation
-- spam protection / captcha if needed
-- analytics events
-- thank-you page or success modal
-- email notifications to admin/reception/sales team
+- CRM/API/email/webhook submission
+- spam protection/captcha if needed
+- thank-you state or thank-you page
+- analytics events for form submit/clicks
 
-## Member portal link
+## Image strategy
 
-The public header has a `/member-login` placeholder route. Replace it later with:
+The current package uses the remote image URLs embedded in Stitch HTML. This is good for demo speed and preserving the visual direction.
 
-- actual auth login route, or
-- external member dashboard URL, or
-- integrated member portal route if all Fume apps are merged into one codebase.
+For final production, replace the remote URLs with final approved Fume photos/media and host them locally or through a stable CDN/CMS.
 
-## Data source
+Reference screenshots from Stitch are available in:
 
-Static content is in:
+- `public/stitch-previews/`
 
-- `lib/site.ts`
-
-For production, the developer can connect locations, blogs, plans and enterprise content to a CMS or admin backend.
-
-## Deployment notes
-
-This is safe to deploy on Vercel as a standalone public frontend.
-
-Recommended test routes after deployment:
+## Recommended routes to test after deployment
 
 - `/`
 - `/locations`
@@ -79,6 +58,7 @@ Recommended test routes after deployment:
 - `/solutions`
 - `/enterprise`
 - `/about`
+- `/gallery`
 - `/blog`
 - `/contact`
 - `/book-a-tour`
@@ -95,3 +75,13 @@ Do not upload:
 - `.env.local`
 - `out`
 - `dist`
+
+## Vercel note
+
+If Vercel says it cannot find `app` or `pages`, the GitHub repo structure is wrong. The repo root must contain:
+
+- `app`
+- `components`
+- `lib`
+- `public`
+- `package.json`

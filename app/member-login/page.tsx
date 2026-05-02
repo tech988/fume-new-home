@@ -1,20 +1,20 @@
 import { ButtonLink } from "@/components/ButtonLink";
+import { Hero } from "@/components/Hero";
 import { PublicShell } from "@/components/PublicShell";
+import { Section } from "@/components/Section";
+import { media } from "@/lib/site";
 
-export default function MemberLoginPage() {
+export default function MemberLoginPlaceholder() {
   return (
     <PublicShell leadSource="Member login placeholder enquiry">
-      <section className="container-pad py-20 sm:py-28">
-        <div className="mx-auto max-w-2xl rounded-[2.5rem] border border-fume-line bg-white/80 p-8 text-center shadow-soft sm:p-12">
-          <p className="font-heading text-xs font-extrabold uppercase tracking-[0.28em] text-fume-rose">Member Portal</p>
-          <h1 className="mt-3 font-heading text-4xl font-black text-fume-ink sm:text-5xl">Member login route placeholder</h1>
-          <p className="mt-4 text-base leading-7 text-fume-muted">This public package is separate from the member dashboard package. Developer can replace this route with the final member portal URL or authentication screen during integration.</p>
-          <div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row">
-            <ButtonLink href="/">Back to public site</ButtonLink>
-            <ButtonLink href="/book-a-tour" variant="secondary">Book a Tour</ButtonLink>
-          </div>
+      <Hero eyebrow="Member Portal" title={<>Member access will connect to the <span className="gradient-text">dashboard</span></>} description="This is a placeholder public route. In production, connect it to the actual member login/dashboard URL once the member portal is finalized." image={media.quietWorkspace} primaryHref="/book-a-tour" primaryLabel="Book a Tour" secondaryHref="/" secondaryLabel="Back to Home" />
+      <Section className="pt-0">
+        <div className="mx-auto max-w-3xl rounded-[2rem] border border-fume-line bg-white/90 p-8 text-center shadow-soft">
+          <h2 className="font-heading text-3xl font-black text-fume-ink">Future member login connection</h2>
+          <p className="mt-4 text-fume-muted">Replace this route with the actual member login flow or external member app URL after backend/auth is ready.</p>
+          <div className="mt-6 flex justify-center"><ButtonLink href="/">Return to Public Site</ButtonLink></div>
         </div>
-      </section>
+      </Section>
     </PublicShell>
   );
 }

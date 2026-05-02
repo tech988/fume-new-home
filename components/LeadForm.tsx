@@ -20,7 +20,7 @@ export function LeadForm({ compact = false, source = "Public page" }: { compact?
       <div className="mb-5">
         <p className="font-heading text-xs font-extrabold uppercase tracking-[0.22em] text-fume-rose">Quick enquiry</p>
         <h3 className="mt-2 font-heading text-2xl font-extrabold text-fume-ink">Plan your visit or workspace requirement</h3>
-        <p className="mt-2 text-sm leading-6 text-fume-muted">This form is intentionally available across public pages so lead capture does not depend on one extra click.</p>
+        <p className="mt-2 text-sm leading-6 text-fume-muted">Share your requirement and the Fume team can help with the right location, plan or visit slot.</p>
       </div>
 
       <div className={`grid gap-3 ${compact ? "" : "sm:grid-cols-2"}`}>
@@ -54,8 +54,8 @@ export function LeadCaptureSection({ source = "Global public lead section" }: { 
         <div className="grid gap-8 rounded-[2.4rem] border border-fume-line bg-white/70 p-5 shadow-soft sm:p-8 lg:grid-cols-[1fr_440px] lg:items-center">
           <div>
             <p className="font-heading text-xs font-extrabold uppercase tracking-[0.28em] text-fume-rose">Ready to visit?</p>
-            <h2 className="mt-3 font-heading text-3xl font-extrabold tracking-tight text-fume-ink sm:text-5xl">Keep the enquiry form on every page.</h2>
-            <p className="mt-4 max-w-2xl text-base leading-7 text-fume-muted sm:text-lg">Whether someone is checking locations, plans, enterprise solutions or blogs, they can submit interest immediately without being forced to navigate to a separate contact page.</p>
+            <h2 className="mt-3 font-heading text-3xl font-extrabold tracking-tight text-fume-ink sm:text-5xl">Book a visit without leaving the page.</h2>
+            <p className="mt-4 max-w-2xl text-base leading-7 text-fume-muted sm:text-lg">The lead form stays available across the public journey so prospects can enquire while they are viewing locations, plans, enterprise spaces or gallery pages.</p>
             <div className="mt-6 grid gap-3 sm:grid-cols-3">
               {["Tour requests", "Workspace enquiries", "Enterprise leads"].map((item) => (
                 <div key={item} className="rounded-2xl border border-fume-line bg-fume-blush px-4 py-3 text-sm font-bold text-fume-ink">{item}</div>

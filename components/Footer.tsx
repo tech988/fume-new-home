@@ -14,7 +14,7 @@ export function Footer() {
                 <p className="text-xs font-bold uppercase tracking-[0.18em] text-white/60">Workspaces for modern teams</p>
               </div>
             </div>
-            <p className="mt-5 max-w-sm text-sm leading-6 text-white/70">A cohesive public frontend prototype for Fume, rebuilt from Stitch exports into a clean React/Next.js structure with lead capture available across public pages.</p>
+            <p className="mt-5 max-w-sm text-sm leading-6 text-white/70">A cohesive public frontend prototype for Fume, rebuilt from Stitch exports with image-led pages, clear routes and lead capture available across the public journey.</p>
           </div>
           <div>
             <h4 className="font-heading text-sm font-extrabold uppercase tracking-[0.2em] text-white/60">Explore</h4>

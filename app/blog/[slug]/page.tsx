@@ -1,7 +1,9 @@
 import { notFound } from "next/navigation";
-import { ButtonLink } from "@/components/ButtonLink";
+import { Hero } from "@/components/Hero";
+import { GalleryGrid } from "@/components/Media";
 import { PublicShell } from "@/components/PublicShell";
-import { blogPosts } from "@/lib/site";
+import { Section } from "@/components/Section";
+import { blogPosts, media } from "@/lib/site";
 
 export function generateStaticParams() {
   return blogPosts.map((post) => ({ slug: post.slug }));
@@ -12,27 +14,19 @@ export default function BlogPostPage({ params }: { params: { slug: string } }) {
   if (!post) notFound();
 
   return (
-    <PublicShell leadSource={`${post.title} blog article enquiry`}>
-      <article className="container-pad py-16 sm:py-20">
-        <div className="mx-auto max-w-4xl">
-          <p className="font-heading text-xs font-extrabold uppercase tracking-[0.28em] text-fume-rose">{post.category} · {post.readTime}</p>
-          <h1 className="mt-4 font-heading text-4xl font-black tracking-tight text-fume-ink sm:text-6xl">{post.title}</h1>
-          <p className="mt-5 text-lg leading-8 text-fume-muted">{post.excerpt}</p>
-          <div className="mt-8 rounded-[2rem] bg-gradient-to-br from-fume-rose to-fume-plum p-8 text-white shadow-lift">
-            <p className="font-heading text-2xl font-black">Public site note</p>
-            <p className="mt-3 leading-7 text-white/80">This article template is intentionally lead-ready. The global enquiry section appears below the content so educational pages can still convert workspace interest.</p>
-          </div>
-          <div className="prose prose-lg mt-10 max-w-none text-fume-muted">
-            <p>Flexible workspaces are no longer only about short-term seating. For growing businesses, they reduce setup time, improve location flexibility and make workspace costs easier to adapt as the team changes.</p>
-            <p>When comparing coworking spaces, teams should look beyond the visual design. Practical questions matter: how easy is guest entry, how are meeting rooms booked, what happens when team size changes, and how clear is billing?</p>
-            <p>For Fume, the public site should guide users from interest to enquiry as quickly as possible. That is why the lead form is now available across public pages and not hidden behind one contact route.</p>
-          </div>
-          <div className="mt-10 flex flex-col gap-3 sm:flex-row">
-            <ButtonLink href="/book-a-tour">Book a Tour</ButtonLink>
-            <ButtonLink href="/blog" variant="secondary">Back to Blog</ButtonLink>
-          </div>
-        </div>
-      </article>
+    <PublicShell leadSource={`${post.title} blog enquiry`}>
+      <Hero eyebrow={post.category} title={<>{post.title}</>} description={post.excerpt} image={post.image ?? media.blogPostHero} primaryLabel="Book a Tour" secondaryHref="/blog" secondaryLabel="Back to Blog" />
+      <Section className="pt-0">
+        <article className="mx-auto max-w-3xl rounded-[2rem] border border-fume-line bg-white/90 p-6 shadow-soft sm:p-10">
+          <p className="text-sm font-bold text-fume-muted">{post.date} · {post.readTime}</p>
+          <h2 className="mt-4 font-heading text-3xl font-black text-fume-ink">A practical workspace perspective</h2>
+          <p className="mt-5 text-base leading-8 text-fume-muted">This is a frontend-ready article template. The final copy can be replaced later through CMS or admin content management, but the structure now supports a proper image-led blog experience.</p>
+          <p className="mt-5 text-base leading-8 text-fume-muted">The key idea is simple: public pages should make prospects feel the workspace. The image section, article content, and global lead form work together so the visitor can enquire without an extra forced redirect.</p>
+        </article>
+      </Section>
+      <Section eyebrow="Related visuals" title="Workspace context from Fume">
+        <GalleryGrid images={[media.blogPostHero, media.blogDesk, media.blogMeeting, media.blogNetworking, media.hotDesk, media.boardroom]} limit={6} />
+      </Section>
     </PublicShell>
   );
 }
