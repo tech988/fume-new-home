@@ -1,73 +1,104 @@
-import { FeatureCard, LocationCard, SolutionCard } from "@/components/Cards";
-import { Hero } from "@/components/Hero";
-import { GalleryGrid, ImageMosaic, SplitImageSection } from "@/components/Media";
-import { PublicShell } from "@/components/PublicShell";
-import { Section } from "@/components/Section";
-import { galleryImages, locations, media, solutions, stats } from "@/lib/site";
+import Image from "next/image";
+import Link from "next/link";
+import { createMetadata } from "@/lib/utils/metadata";
+import { HeroSection } from "@/components/sections/hero-section";
+import { SectionHeading } from "@/components/ui/section-heading";
+import { ButtonLink } from "@/components/ui/button-link";
+import { WorkspaceCard } from "@/components/cards/workspace-card";
+import { LocationCard } from "@/components/cards/location-card";
+import { BlogCard } from "@/components/cards/blog-card";
+import { AmenitiesSection } from "@/components/sections/amenities-section";
+import { TestimonialsSection } from "@/components/sections/testimonials-section";
+import { LeadFormSection } from "@/components/sections/lead-form-section";
+import { allWorkspaceCards } from "@/lib/content/workspaces";
+import { locations } from "@/lib/content/locations";
+import { trustStats } from "@/lib/content/social-proof";
+import { blogPosts } from "@/lib/content/blogs";
+import { galleryItems } from "@/lib/content/gallery";
 
-export default function HomePage() {
-  return (
-    <PublicShell leadSource="Homepage enquiry">
-      <Hero
-        eyebrow="Premium coworking in Gurugram"
-        title={<>Workspaces built for <span className="gradient-text">teams in motion</span></>}
-        description="Discover flexible desks, private offices, meeting rooms and enterprise-ready workspaces across Fume locations, with quick lead capture available on every page."
-        primaryLabel="Book a Tour"
-        secondaryHref="/locations"
-        secondaryLabel="View Locations"
-        image={media.homeHero}
-      />
+export const metadata = createMetadata({
+  title: "Coworking Spaces in Delhi NCR",
+  description: "Book coworking desks, private cabins, day passes, meeting rooms, conference rooms and virtual offices across Fume Coworking locations in Delhi NCR.",
+  path: "/"
+});
 
-      <Section className="pt-4">
-        <div className="grid gap-4 rounded-[2.25rem] border border-fume-line bg-white/80 p-4 shadow-soft sm:grid-cols-2 lg:grid-cols-4">
-          {stats.map((item) => (
-            <div key={item.label} className="rounded-[1.5rem] bg-fume-blush px-5 py-6 text-center">
-              <p className="font-heading text-3xl font-black text-fume-rose">{item.value}</p>
-              <p className="mt-2 text-sm font-bold text-fume-muted">{item.label}</p>
-            </div>
-          ))}
+export const HomePage = () => (
+  <>
+    <HeroSection
+      eyebrow="Fume Coworking"
+      title="Flexible Coworking Spaces in Delhi NCR, Built for Focused Work and Growing Teams"
+      description="Choose from day passes, dedicated desks, private cabins, meeting rooms, conference rooms and virtual office solutions across Fume’s NCR locations."
+      chips={["500+ companies", "1000+ seating capacity", "New Delhi & Gurugram", "Prime NCR locations"]}
+    />
+    <section className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
+      <div className="grid gap-4 rounded-[2rem] bg-fume-charcoal p-5 text-white shadow-soft md:grid-cols-4">
+        {trustStats.map((stat) => (
+          <div key={stat.label} className="rounded-[1.5rem] bg-white/10 p-5 text-center">
+            <strong className="block font-heading text-3xl">{stat.value}</strong>
+            <span className="mt-1 block text-sm text-white/70">{stat.label}</span>
+          </div>
+        ))}
+      </div>
+    </section>
+    <section className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
+      <SectionHeading eyebrow="Workspace finder" title="What are you looking for today?" />
+      <div className="grid gap-4 md:grid-cols-3 lg:grid-cols-6">
+        {allWorkspaceCards.map((workspace) => (
+          <Link key={workspace.name} href={workspace.href} className="rounded-[1.75rem] border border-fume-primary/10 bg-white p-5 text-center shadow-card hover:shadow-soft">
+            <span className="text-3xl text-fume-primary">{workspace.icon}</span>
+            <strong className="mt-3 block font-heading text-fume-charcoal">{workspace.name}</strong>
+            <span className="mt-2 block text-xs text-neutral-500">{workspace.booking}</span>
+          </Link>
+        ))}
+      </div>
+    </section>
+    <section className="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8">
+      <SectionHeading eyebrow="Solutions" title="Workspaces for every way you work" />
+      <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+        {allWorkspaceCards.map((workspace) => <WorkspaceCard key={workspace.slug} workspace={workspace} />)}
+      </div>
+    </section>
+    <section className="bg-fume-muted py-20">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <SectionHeading eyebrow="Locations" title="Find Fume near your work network" />
+        <div className="grid gap-6 lg:grid-cols-2">
+          {locations.map((location) => <LocationCard key={location.id} location={location} />)}
         </div>
-      </Section>
+      </div>
+    </section>
+    <AmenitiesSection />
+    <TestimonialsSection />
+    <section className="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8">
+      <SectionHeading eyebrow="Gallery" title="Step inside Fume" description="A quick look at workspaces, cabins, meeting rooms, pantry zones and community corners." />
+      <div className="grid gap-4 md:grid-cols-4">
+        {galleryItems.slice(0, 4).map((item) => (
+          <div key={item.fileName} className="relative h-72 overflow-hidden rounded-[2rem] shadow-card">
+            <Image src={`/images/gallery/${item.fileName}`} alt={item.alt} fill sizes="25vw" className="object-cover" />
+          </div>
+        ))}
+      </div>
+      <div className="mt-8 text-center"><ButtonLink href="/gallery/" variant="ghost">View Gallery</ButtonLink></div>
+    </section>
+    <section className="mx-auto grid max-w-7xl gap-6 px-4 py-16 sm:px-6 md:grid-cols-2 lg:px-8">
+      <article className="rounded-[2rem] bg-gradient-to-br from-fume-secondary to-fume-primary p-8 text-white shadow-soft">
+        <h2 className="font-heading text-3xl font-black">Host an event at Fume</h2>
+        <p className="mt-4 text-white/80">Workshops, brand activations, meetups and team sessions in a professional NCR workspace.</p>
+        <ButtonLink href="/events-at-fume/" variant="ghost" className="mt-6">Explore Events</ButtonLink>
+      </article>
+      <article className="rounded-[2rem] border border-fume-primary/10 bg-white p-8 shadow-card">
+        <h2 className="font-heading text-3xl font-black text-fume-charcoal">Partner with Fume</h2>
+        <p className="mt-4 text-neutral-600">Reach founders, teams, professionals and growing businesses through collaboration opportunities.</p>
+        <ButtonLink href="/partner-with-us/" className="mt-6">Partner With Us</ButtonLink>
+      </article>
+    </section>
+    <section className="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8">
+      <SectionHeading eyebrow="Blog" title="Insights on coworking, productivity and flexible work" />
+      <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
+        {blogPosts.map((post) => <BlogCard key={post.slug} post={post} />)}
+      </div>
+    </section>
+    <LeadFormSection sourcePath="/" />
+  </>
+);
 
-      <Section eyebrow="Workspace formats" title="Choose the work setup that fits your day" description="The page now uses Stitch’s original coworking visuals, so the site feels like a real workspace brand instead of a SaaS dashboard.">
-        <div className="grid gap-6 lg:grid-cols-4">
-          {solutions.map((solution) => <SolutionCard key={solution.title} solution={solution} />)}
-        </div>
-      </Section>
-
-      <Section className="pt-0">
-        <SplitImageSection
-          eyebrow="Client-ready spaces"
-          title="Make the first impression feel premium before someone even walks in."
-          description="Public pages should sell the physical experience: light, interiors, meeting rooms, lounges and day-to-day professionalism. These visuals are now back across the homepage, location pages and service pages."
-          bullets={["Premium interiors", "Meeting rooms", "Private offices", "Daily workspace support"]}
-          image={media.boardroom}
-        />
-      </Section>
-
-      <Section eyebrow="Locations" title="Explore Fume workspaces" description="Each location card now uses actual coworking imagery from the Stitch export instead of flat gradient placeholders.">
-        <div className="grid gap-6 lg:grid-cols-3">
-          {locations.map((location) => <LocationCard key={location.slug} location={location} />)}
-        </div>
-      </Section>
-
-      <Section eyebrow="Inside Fume" title="A more visual public-site experience" description="Use these images for workspace confidence, not decoration. They support lead conversion by showing what the prospect is enquiring about.">
-        <ImageMosaic images={[media.locationLounge, media.teamCollab, media.privateOffice]} />
-      </Section>
-
-      <Section eyebrow="Gallery preview" title="See the atmosphere before booking a tour" description="A short visual gallery is now connected from the main navigation and homepage.">
-        <GalleryGrid images={galleryImages} limit={6} />
-      </Section>
-
-      <Section className="pt-0">
-        <div className="grid gap-6 md:grid-cols-3">
-          {[
-            ["For individuals", "Day passes and dedicated desks for people who need a reliable professional base."],
-            ["For teams", "Private cabins, team seating and predictable access for growing businesses."],
-            ["For enterprises", "Custom workspace setups, permissions, billing and operational support for larger teams."]
-          ].map(([title, description]) => <FeatureCard key={title} title={title} description={description} />)}
-        </div>
-      </Section>
-    </PublicShell>
-  );
-}
+export default HomePage;

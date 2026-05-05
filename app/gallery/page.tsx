@@ -1,16 +1,34 @@
-import { Hero } from "@/components/Hero";
-import { GalleryGrid } from "@/components/Media";
-import { PublicShell } from "@/components/PublicShell";
-import { Section } from "@/components/Section";
-import { galleryImages, media } from "@/lib/site";
+import dynamic from "next/dynamic";
+import { createMetadata } from "@/lib/utils/metadata";
+import { HeroSection } from "@/components/sections/hero-section";
+import { LeadFormSection } from "@/components/sections/lead-form-section";
+import { LoadingState } from "@/components/ui/state-block";
 
-export default function GalleryPage() {
-  return (
-    <PublicShell leadSource="Gallery page enquiry">
-      <Hero eyebrow="Gallery" title={<>Inside the <span className="gradient-text">Fume workspace experience</span></>} description="A visual page for prospects who want to see desks, rooms, lounges, team areas and meeting spaces before booking a tour." image={media.locationLounge} primaryLabel="Book a Tour" secondaryHref="/locations" secondaryLabel="Explore Locations" />
-      <Section eyebrow="Workspace visuals" title="Gallery from the Stitch public-site assets" description="These images are used across the public site and collected here for easy client review.">
-        <GalleryGrid images={galleryImages} />
-      </Section>
-    </PublicShell>
-  );
-}
+const GalleryMasonry = dynamic(
+  () => import("@/components/gallery/gallery-masonry").then((module) => module.GalleryMasonry),
+  { loading: () => <LoadingState label="Loading gallery" /> }
+);
+
+export const metadata = createMetadata({
+  title: "Fume Coworking Gallery",
+  description: "Explore Fume Coworking workspaces, private cabins, meeting rooms, pantry zones and community spaces in Delhi NCR.",
+  path: "/gallery/"
+});
+
+export const GalleryPage = () => (
+  <>
+    <HeroSection
+      eyebrow="Gallery"
+      title="Inside Fume Coworking"
+      description="Explore our workspaces, private cabins, meeting rooms, event spaces and community moments."
+      imageSrc="/images/gallery/udyog-vihar-lobby-1.jpg"
+      imageAlt="Fume Coworking gallery"
+    />
+    <section className="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8">
+      <GalleryMasonry />
+    </section>
+    <LeadFormSection title="Like what you see? Visit a Fume location." sourcePath="/gallery/" />
+  </>
+);
+
+export default GalleryPage;
