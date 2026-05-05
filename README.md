@@ -1,105 +1,141 @@
-# Fume Coworking Public Website - Image-Rich Next.js Frontend
+# Fume Coworking Public Site — Next.js 14 App Router Package
 
-This package rebuilds the Stitch public website export into a clean, responsive React/Next.js frontend for review and deployment.
+This package converts the cleaned static Fume public-site build into a maintainable Next.js 14 codebase using TypeScript, Tailwind CSS, Zustand, TanStack Query v5, Zod, Vitest and React Testing Library.
 
-This updated version restores the visual/coworking feel from the Stitch export by using the original image URLs found inside the exported HTML. The earlier version had become too abstract and SaaS-like because the image sections were removed.
+## Stack
 
-## Main routes
+- Next.js 14 App Router
+- TypeScript strict mode
+- Tailwind CSS
+- Zustand for non-sensitive UI state
+- TanStack Query v5 for client-side mutations/data operations
+- Zod validation on client and server
+- Vitest + React Testing Library
+- Node 20
+- npm
 
-- `/` - Home
-- `/locations` - Location listing
-- `/locations/cyber-city-gurgaon` - Location detail
-- `/locations/golf-course-road` - Location detail
-- `/locations/udyog-vihar` - Location detail
-- `/solutions` - Workspace plans and solutions
-- `/enterprise` - Enterprise workspace solutions
-- `/about` - About Fume
-- `/gallery` - Workspace gallery
-- `/blog` - Blog archive
-- `/blog/future-of-flexible-workspaces` - Blog detail
-- `/contact` - Contact page
-- `/book-a-tour` - Main tour request page
-- `/member-login` - Placeholder route for future member portal connection
+## Folder structure
 
-## Alias routes included
+```txt
+fume-coworking-public-site/
+├── app/
+│   ├── api/leads/route.ts
+│   ├── category/blog/page.tsx
+│   ├── locations/
+│   │   ├── page.tsx
+│   │   ├── new-delhi/page.tsx
+│   │   └── gurugram/page.tsx
+│   ├── product/[slug]/page.tsx
+│   ├── product-category/workspaces/[[...slug]]/page.tsx
+│   ├── workspace/
+│   │   ├── page.tsx
+│   │   ├── open-dedicated/page.tsx
+│   │   ├── cubicle/page.tsx
+│   │   ├── private-cabin/page.tsx
+│   │   ├── day-pass/page.tsx
+│   │   ├── meeting-room/page.tsx
+│   │   └── virtual-office/page.tsx
+│   ├── [slug]/page.tsx
+│   ├── layout.tsx
+│   ├── page.tsx
+│   ├── sitemap.ts
+│   ├── robots.ts
+│   └── globals.css
+├── components/
+│   ├── booking/
+│   ├── cards/
+│   ├── forms/
+│   ├── gallery/
+│   ├── layout/
+│   ├── providers/
+│   ├── sections/
+│   ├── seo/
+│   └── ui/
+├── lib/
+│   ├── api/
+│   ├── config/
+│   ├── content/
+│   ├── utils/
+│   ├── validators/
+│   └── types.ts
+├── stores/
+├── public/images/gallery/
+└── test/
+```
 
-- `/home` -> `/`
-- `/solutions-plans` -> `/solutions`
-- `/enterprise-solutions` -> `/enterprise`
-- `/contact-us` -> `/contact`
-- `/book-tour` -> `/book-a-tour`
-- `/workspace-gallery` -> `/gallery`
+## Preserved public routes
 
-## What changed in this version
+- `/`
+- `/locations/`
+- `/locations/new-delhi/`
+- `/locations/gurugram/`
+- `/workspace/`
+- `/workspace/open-dedicated/`
+- `/workspace/cubicle/`
+- `/workspace/private-cabin/`
+- `/workspace/day-pass/`
+- `/workspace/meeting-room/`
+- `/workspace/virtual-office/`
+- `/about-us/`
+- `/gallery/`
+- `/events-at-fume/`
+- `/partner-with-us/`
+- `/contact-us/`
+- `/privacy-policy/`
+- `/refund_returns/`
+- `/terms-and-conditions/`
+- `/shop/`
+- `/cart/`
+- `/product-category/workspaces/`
+- `/product-category/workspaces/day-pass/`
+- `/product-category/workspaces/meeting-room/`
+- `/product-category/workspaces/conference-room/`
+- `/product-category/workspaces/in-delhi/`
+- `/product-category/workspaces/in-gurugram/`
+- Existing product booking URLs
+- Existing blog URLs
 
-- Restored Stitch image URLs across all key pages.
-- Added a proper image-led homepage hero.
-- Added image cards for workspace plans and locations.
-- Added gallery sections on homepage, location detail, about, solutions and enterprise pages.
-- Added a dedicated `/gallery` page.
-- Kept the lead capture form visible across public pages.
-- Contact and Book-a-Tour pages use larger main forms instead of duplicate global forms.
-- Added Stitch preview screenshots under `public/stitch-previews/` for developer/reference use.
-
-## Lead capture form
-
-The reusable form lives in:
-
-- `components/LeadForm.tsx`
-
-The global lead section is added through:
-
-- `components/PublicShell.tsx`
-
-The form is currently frontend-only. Developer should connect it to:
-
-- CRM
-- Email notification
-- Backend API
-- Google Sheet / Apps Script
-- Webhook
-- Analytics/conversion event
-
-## Image source note
-
-The page visuals use the original remote image URLs from the Stitch HTML export. This keeps the package lightweight and restores the intended visual direction.
-
-For production, the developer should ideally download/replace these with final client-approved images hosted in:
-
-- `/public/images/`
-- a CDN
-- or the final CMS/media library
-
-## Setup
+## Install and run
 
 ```bash
 npm install
 npm run dev
+npm run typecheck
+npm run test
+npm run build
 ```
 
-Open:
-
-```txt
-http://localhost:3000
-```
-
-## Production build
+## Environment variables
 
 ```bash
-npm run build
-npm run start
+NEXT_PUBLIC_SITE_URL=https://www.fumecoworking.in
+FUME_ALLOWED_ORIGINS=https://www.fumecoworking.in,https://fumecoworking.in
+FUME_LEAD_WEBHOOK_URL=https://your-secure-lead-endpoint.example.com
 ```
 
-## Vercel upload
+`FUME_LEAD_WEBHOOK_URL` is optional during staging. If it is missing, the lead route accepts the request but does not forward it.
 
-Upload the contents of this folder to GitHub. Do not upload the outer folder as a nested folder unless Vercel Root Directory is set accordingly.
+## Important implementation notes
 
-Do not upload:
+- Reusable modules use named exports.
+- Next.js App Router files still use default exports because Next requires default exports for `layout.tsx`, `page.tsx`, `not-found.tsx`, `robots.ts`, and `sitemap.ts`.
+- All client API calls go through `/lib/api`.
+- Lead form validation runs on the client and again in `app/api/leads/route.ts` with Zod.
+- No `dangerouslySetInnerHTML` is used.
+- No localStorage is used.
+- No hardcoded secrets or API keys are included. Server-only webhook configuration uses `FUME_LEAD_WEBHOOK_URL`.
+- Images use `next/image` instead of raw image tags in app/components. Test mocks use raw `<img>` only inside test files.
+- Gallery is dynamically imported because it is the most interaction-heavy client section.
 
-- `node_modules`
-- `.next`
-- `.vercel`
-- `.env`
-- `.env.local`
-- `out`
-- `dist`
+## Follow-up required before production
+
+1. Connect `/api/leads` to the final CRM/email/Google Sheet/Zapier/Zoho flow.
+2. The API route now has a small in-memory rate limit, origin allowlist and honeypot. Add production-grade WAF/rate limiting or CAPTCHA before high-traffic launch.
+3. Replace legal placeholder text with legally approved policy copy.
+4. Confirm final address, phone, email, social links, workspace capacities and pricing.
+5. Connect `/cart/` and product routes to final WooCommerce/booking/payment flow if e-commerce checkout remains required.
+6. Add real logo asset if available; current package uses a clean text/mark placeholder.
+
+## New packages included
+
+The project includes the packages required for the stack and testing setup. `@vitejs/plugin-react` is included only to make Vitest process React/TSX tests cleanly.

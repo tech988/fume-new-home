@@ -1,6 +1,14 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  reactStrictMode: true
+  reactStrictMode: true,
+  poweredByHeader: false,
+  eslint: {
+    dirs: ["app", "components", "lib", "stores", "test"]
+  },
+  images: {
+    formats: ["image/avif", "image/webp"],
+    remotePatterns: []
+  }
 };
 
 export default nextConfig;
