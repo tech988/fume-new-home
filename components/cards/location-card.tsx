@@ -3,7 +3,7 @@ import { ButtonLink } from "@/components/ui/button-link";
 import type { Location } from "@/lib/types";
 
 export const LocationCard = ({ location }: { readonly location: Location }) => (
-  <article className="grid overflow-hidden rounded-[2rem] border border-fume-primary/10 bg-white shadow-card md:grid-cols-[0.95fr_1.05fr]">
+  <article className="grid overflow-hidden rounded-[2rem] border border-fume-primary/10 bg-white shadow-card fume-motion-card md:grid-cols-[0.95fr_1.05fr]">
     <div className="relative min-h-72">
       <Image src={location.image} alt={`${location.title} Fume Coworking`} fill sizes="(min-width: 768px) 45vw, 100vw" className="object-cover" />
     </div>

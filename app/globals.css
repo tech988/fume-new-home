@@ -17,3 +17,204 @@ body {
 ::selection {
   @apply bg-fume-primary text-white;
 }
+
+@layer utilities {
+  .motion-safe-fade-up {
+    animation: fume-fade-up 760ms ease both;
+  }
+
+  .motion-safe-soft-float {
+    animation: fume-soft-float 7s ease-in-out infinite;
+  }
+
+  .motion-safe-gradient-shift {
+    background-size: 220% 220%;
+    animation: fume-gradient-shift 14s ease infinite;
+  }
+}
+
+@layer components {
+  .fume-loader {
+    @apply flex flex-col items-center gap-5 text-center;
+  }
+
+  .fume-loader__ring {
+    @apply relative h-24 w-24 rounded-full border border-fume-primary/20 bg-white shadow-soft;
+  }
+
+  .fume-loader__ring::before {
+    content: "";
+    @apply absolute inset-3 rounded-full;
+    border: 2px solid transparent;
+    border-right-color: #710a73;
+    border-top-color: #d92365;
+    animation: fume-spin 1.15s linear infinite;
+  }
+
+  .fume-loader__dot {
+    @apply absolute h-3 w-3 rounded-full bg-fume-primary;
+    animation: fume-pulse-dot 1.4s ease-in-out infinite;
+  }
+
+  .fume-loader__dot--one {
+    left: 24px;
+    top: 44px;
+  }
+
+  .fume-loader__dot--two {
+    left: 44px;
+    top: 44px;
+    animation-delay: 140ms;
+  }
+
+  .fume-loader__dot--three {
+    left: 64px;
+    top: 44px;
+    animation-delay: 280ms;
+  }
+
+  .fume-loader__text {
+    @apply font-heading text-sm font-bold uppercase tracking-[0.24em] text-fume-secondary;
+  }
+
+  .fume-gradient-panel {
+    @apply relative overflow-hidden rounded-[2.5rem] border border-fume-primary/10 bg-white shadow-soft;
+  }
+
+  .fume-gradient-panel::before {
+    content: "";
+    @apply absolute inset-0 opacity-90;
+    background:
+      radial-gradient(circle at 14% 22%, rgba(217, 35, 101, 0.26), transparent 28%),
+      radial-gradient(circle at 88% 12%, rgba(113, 10, 115, 0.22), transparent 30%),
+      linear-gradient(135deg, #fff 0%, #fff7fb 42%, #f7f3f7 100%);
+    background-size: 180% 180%;
+    animation: fume-gradient-shift 16s ease-in-out infinite;
+  }
+
+  .fume-gradient-panel__orb {
+    @apply absolute rounded-full blur-3xl;
+    animation: fume-soft-float 9s ease-in-out infinite;
+  }
+
+  .fume-gradient-panel__orb--primary {
+    @apply h-40 w-40 bg-fume-primary/25;
+    right: 7%;
+    top: 10%;
+  }
+
+  .fume-gradient-panel__orb--secondary {
+    @apply h-56 w-56 bg-fume-secondary/20;
+    bottom: -12%;
+    left: -4%;
+    animation-delay: 1200ms;
+  }
+
+  .fume-motion-card {
+    @apply transition duration-300 ease-out;
+  }
+
+  .fume-motion-card:hover {
+    transform: translateY(-6px);
+  }
+
+
+
+  .fume-icon-shell {
+    @apply flex h-20 w-20 items-center justify-center rounded-[1.5rem] bg-fume-muted shadow-sm ring-1 ring-fume-primary/10;
+  }
+
+  .fume-amenity-icon {
+    @apply transition duration-300 ease-out;
+  }
+
+  .group:hover .fume-amenity-icon {
+    transform: translateY(-4px) scale(1.08) rotate(-2deg);
+  }
+
+  .fume-animated-underline {
+    @apply relative inline-block;
+  }
+
+  .fume-animated-underline::after {
+    content: "";
+    @apply absolute -bottom-2 left-0 h-1 w-full rounded-full;
+    background: linear-gradient(90deg, #d92365, #710a73, #bf1b75);
+    transform: scaleX(0.7);
+    transform-origin: left;
+    animation: fume-underline-breathe 2.8s ease-in-out infinite;
+  }
+}
+
+@keyframes fume-fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fume-soft-float {
+  0%, 100% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+
+  50% {
+    transform: translate3d(8px, -12px, 0) scale(1.04);
+  }
+}
+
+@keyframes fume-gradient-shift {
+  0%, 100% {
+    background-position: 0% 50%;
+  }
+
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+@keyframes fume-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes fume-pulse-dot {
+  0%, 100% {
+    opacity: 0.55;
+    transform: scale(0.72);
+  }
+
+  45% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes fume-underline-breathe {
+  0%, 100% {
+    opacity: 0.55;
+    transform: scaleX(0.7);
+  }
+
+  50% {
+    opacity: 1;
+    transform: scaleX(1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.001ms !important;
+  }
+}

@@ -7,7 +7,7 @@ type ButtonVariant = "primary" | "secondary" | "ghost";
 
 export const buttonClassName = (variant: ButtonVariant = "primary"): string =>
   cn(
-    "inline-flex items-center justify-center rounded-full px-5 py-3 text-sm font-semibold transition focus:outline-none focus:ring-2 focus:ring-fume-primary focus:ring-offset-2",
+    "inline-flex items-center justify-center rounded-full px-5 py-3 text-sm font-semibold transition duration-300 focus:outline-none focus:ring-2 focus:ring-fume-primary focus:ring-offset-2 hover:-translate-y-0.5",
     variant === "primary" && "bg-fume-primary text-white shadow-soft hover:bg-fume-accent",
     variant === "secondary" && "bg-fume-secondary text-white shadow-soft hover:bg-fume-accent",
     variant === "ghost" && "border border-fume-primary/25 bg-white text-fume-secondary hover:bg-fume-muted"

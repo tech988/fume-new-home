@@ -63,6 +63,19 @@ fume-coworking-public-site/
 └── test/
 ```
 
+
+## Motion layer
+
+This version includes a lightweight native CSS motion layer for the public site:
+
+- Branded route loader in `app/loading.tsx`
+- Reusable loader component in `components/ui/fume-loader.tsx`
+- Animated brand-gradient surface in `components/ui/animated-gradient-panel.tsx`
+- Card and CTA micro-interactions in `app/globals.css`
+- Global `prefers-reduced-motion` support
+
+No new animation npm package was added. Motion uses only the approved Fume colors and keeps the public SEO pages fast. See `MOTION_ENHANCEMENT_NOTES.md` for the design rationale.
+
 ## Preserved public routes
 
 - `/`

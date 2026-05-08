@@ -33,11 +33,15 @@ export type Workspace = {
   readonly h1: string;
   readonly subheadline: string;
   readonly icon: string;
+  readonly iconSrc: string;
+  readonly iconAlt: string;
 };
 
 export type Amenity = {
   readonly title: string;
   readonly description: string;
+  readonly iconSrc: string;
+  readonly iconAlt: string;
 };
 
 export type Testimonial = {

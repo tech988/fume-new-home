@@ -44,8 +44,10 @@ export const HomePage = () => (
       <SectionHeading eyebrow="Workspace finder" title="What are you looking for today?" />
       <div className="grid gap-4 md:grid-cols-3 lg:grid-cols-6">
         {allWorkspaceCards.map((workspace) => (
-          <Link key={workspace.name} href={workspace.href} className="rounded-[1.75rem] border border-fume-primary/10 bg-white p-5 text-center shadow-card hover:shadow-soft">
-            <span className="text-3xl text-fume-primary">{workspace.icon}</span>
+          <Link key={workspace.name} href={workspace.href} className="group rounded-[1.75rem] border border-fume-primary/10 bg-white p-5 text-center shadow-card transition duration-300 hover:-translate-y-1 hover:shadow-soft">
+            <span className="mx-auto flex h-16 w-16 items-center justify-center rounded-3xl bg-fume-muted shadow-sm ring-1 ring-fume-primary/10">
+              <Image src={workspace.iconSrc} alt={workspace.iconAlt} width={56} height={56} className="h-12 w-12 object-contain transition duration-300 group-hover:scale-110" />
+            </span>
             <strong className="mt-3 block font-heading text-fume-charcoal">{workspace.name}</strong>
             <span className="mt-2 block text-xs text-neutral-500">{workspace.booking}</span>
           </Link>

@@ -3,12 +3,14 @@ import { ButtonLink } from "@/components/ui/button-link";
 import type { Workspace } from "@/lib/types";
 
 export const WorkspaceCard = ({ workspace }: { readonly workspace: Workspace }) => (
-  <article className="overflow-hidden rounded-[2rem] border border-fume-primary/10 bg-white shadow-card transition hover:-translate-y-1 hover:shadow-soft">
+  <article className="group overflow-hidden rounded-[2rem] border border-fume-primary/10 bg-white shadow-card transition hover:-translate-y-1 hover:shadow-soft fume-motion-card">
     <div className="relative h-56">
       <Image src={workspace.image} alt={`${workspace.name} at Fume Coworking`} fill sizes="(min-width: 1024px) 33vw, 100vw" className="object-cover" />
     </div>
     <div className="p-6">
-      <span className="inline-flex h-11 w-11 items-center justify-center rounded-2xl bg-fume-muted text-xl text-fume-primary">{workspace.icon}</span>
+      <span className="inline-flex h-16 w-16 items-center justify-center rounded-3xl bg-fume-muted shadow-sm ring-1 ring-fume-primary/10">
+        <Image src={workspace.iconSrc} alt={workspace.iconAlt} width={56} height={56} className="h-12 w-12 object-contain transition duration-300 group-hover:scale-110" />
+      </span>
       <h3 className="mt-4 font-heading text-2xl font-bold text-fume-charcoal">{workspace.name}</h3>
       <p className="mt-3 min-h-20 text-sm leading-7 text-neutral-600">{workspace.bestFor}</p>
       <dl className="mt-5 grid grid-cols-2 gap-3 text-xs">
